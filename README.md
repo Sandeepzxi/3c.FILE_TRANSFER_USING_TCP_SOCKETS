@@ -1,4 +1,6 @@
 # 3c.CREATION FOR FILE TRANSFER USING TCP SOCKETS
+## Name:Sandeep S
+## Reg:212223220092
 ## AIM
 To write a python program for creating File Transfer using TCP Sockets Links
 ## ALGORITHM:
@@ -11,7 +13,6 @@ To write a python program for creating File Transfer using TCP Sockets Links
 # Client 
 ```
 import socket
-
 def receive_file(filename, server_socket):
     with open(filename, 'wb') as file:
         while True:
@@ -23,59 +24,42 @@ def receive_file(filename, server_socket):
 def start_client():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(('127.0.0.1', 5555))
-
     filename = input("Enter filename to save: ")
     client_socket.sendall(filename.encode())
-
     receive_file(filename, client_socket)
     print(f"File '{filename}' received successfully")
-
     client_socket.close()
-
 start_client()
-
 ```
-
 # Server
-
 ```
 import socket
-
 def send_file(filename, client_socket):
     with open(filename, 'rb') as file:
         for data in file:
             client_socket.sendall(data)
-
 def start_server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind(('127.0.0.1', 5555))
     server_socket.listen(5)
     print("Server started, listening on port 5555")
-
     while True:
         client_socket, addr = server_socket.accept()
         print(f"Accepted connection from {addr}")
-
-        filename = input("Enter filename to send: ")
+       filename = input("Enter filename to send: ")
         try:
             send_file(filename, client_socket)
             print(f"File '{filename}' sent successfully")
         except FileNotFoundError:
             print(f"File '{filename}' not found")
-
         client_socket.close()
-
 start_server()
-
 ```
 ## OUPUT
-
 # Client
 ![image](https://github.com/user-attachments/assets/9681795a-862e-4bef-9b13-953b1756aae4)
-
 # server
 ![image](https://github.com/user-attachments/assets/7c1bd74f-4482-4941-825f-59aebf6e28c4)
-
 ## RESULT
 Thus, the python program for creating File Transfer using TCP Sockets Links was 
 successfully created and executed.
